@@ -1,4 +1,5 @@
 #define PI 3.14159265359f
+#define SDK_RENDER 1
 
 #include "GameEngine.h"
 
@@ -37,24 +38,50 @@ GameEngine::GameEngine() {
 	engine = this;
 
 	glfwSetErrorCallback(&this->error_callback);
-	if (!glfwInit()) { exit(EXIT_FAILURE); }
+	if (!glfwInit()) { 
+		fprintf(stdout, "ERROR: GLFW INIT FAILED");
+		this->~GameEngine();
+	}
 
 	// initialize and get first HMD device
-	ovr_Initialize();
-	hmd = ovrHmd_Create(0);
-	if (!hmd) { hmd = ovrHmd_CreateDebug(ovrHmdType::ovrHmd_DK2); }
+	ovrBool initialized = ovr_Initialize();
+	if (initialized) {
+		hmd = ovrHmd_Create(0);
+		if (!hmd) {
+			fprintf(stdout, "WARNING: HMD NOT FOUND; USING DUMMY HMD");
+			hmd = ovrHmd_CreateDebug(ovrHmdType::ovrHmd_DK2);
+		}
+	}
+	else {
+		fprintf(stdout, "ERROR: COULD NOT INITIALIZE HMD");
+		this->~GameEngine();
+	}
+
 
 	int width = 640;
 	int height = 480;
 	GLFWwindow* window = glfwCreateWindow(width, height, "VR Game Engine", NULL, NULL);
-	if (!window) { this->~GameEngine(); }
+	if (!window) { 
+		fprintf(stdout, "ERROR: COULD NOT CREATE GLFW WINDOW");
+		this->~GameEngine(); 
+	}
 	this->shouldClose = glfwWindowShouldClose(window);
 	Viewport viewport = Viewport(*window, 640, 480);
+
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		fprintf(stdout, "ERROR: GLEW INIT FAILED: " + (int)err);
+		this->~GameEngine();
+	}
+	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	// set up hmd
 	ovrSizei resolution = hmd->Resolution;
 	ovrBool tracking = ovrHmd_ConfigureTracking(hmd, ovrTrackingCap_Orientation | ovrTrackingCap_MagYawCorrection | ovrTrackingCap_Position, 0);
-	if (tracking == false) { this->~GameEngine(); }
+	if (tracking == false) { 
+		fprintf(stdout, "ERROR: TRACKING MECHANISM NOT FOUND. EXITING");
+		this->~GameEngine(); 
+	}
 
 	// configure hmd OpenGL instance
 	const ovrRecti debugRect = viewport;
@@ -64,7 +91,7 @@ GameEngine::GameEngine() {
 	config.Header.API = ovrRenderAPIType::ovrRenderAPI_OpenGL;
 	config.Header.Multisample = 4; 
 	ovrSizei rtSize = viewport;
-	config.Header.RTSize = rtSize;
+	config.Header.BackBufferSize = rtSize;
 
 	ovrEyeRenderDesc eyeRenderDesc[2];
 	eyeRenderDesc[0] = ovrHmd_GetRenderDesc(hmd, ovrEye_Left, hmd->DefaultEyeFov[0]);
@@ -76,6 +103,7 @@ GameEngine::GameEngine() {
 }
 
 GameEngine::~GameEngine() {
+
 	ovrHmd_Destroy(this->hmd);
 	glfwDestroyWindow(this->window);
 	ovr_Shutdown();
@@ -85,6 +113,9 @@ GameEngine::~GameEngine() {
 
 void GameEngine::render() {
 	this->shouldClose = glfwWindowShouldClose(window);
+
+	GLuint FramebufferName = 0;
+	
 
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
@@ -156,11 +187,13 @@ void GameEngine::render() {
 
 int main(void) {
 	GameEngine engine = GameEngine();
+	fprintf(stdout, "WARNING: Engine opening");
 
 	while (!engine.shouldClose) {
 		engine.render();
 	}
 
+	fprintf(stdout, "WARNING: Engine closing");
 	engine.~GameEngine();
 }
 
