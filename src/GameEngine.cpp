@@ -2,40 +2,77 @@
 
 #include "GameEngine.h"
 
-static GameEngine* engine;
+Viewport::Viewport() {}
 
-void GameEngine::error_callback(int error, const char* description) {
-	fputs(description, stderr);
+Viewport::Viewport(GLFWwindow &window, int width, int height) {
+	this->window = &window;
+	this->width = width;
+	this->height = height;
 }
-void GameEngine::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	ovrHmd_Destroy(engine->hmd);
-	ovr_Shutdown();
+
+Viewport::operator ovrRecti() {
+	ovrVector2i pos;
+	pos.x, pos.y = 0;
+
+	ovrSizei size;
+	size.w = this->width;
+	size.h = this->height;
+
+	ovrRecti rect;
+	rect.Pos = pos;
+	rect.Size = size;
+	return rect;
 }
+
+Viewport::operator ovrSizei() {
+	ovrSizei size;
+	size.w = this->width;
+	size.h = this->height;
+	return size;
+}
+
+static GameEngine* engine;
 
 GameEngine::GameEngine() {
 	engine = this;
-	GLFWwindow* window;
+
 	glfwSetErrorCallback(&this->error_callback);
 	if (!glfwInit()) { exit(EXIT_FAILURE); }
-
-	window = glfwCreateWindow(640, 480, "VR Game Engine", NULL, NULL);
-	if (!window) { this->~GameEngine(); }
-	this->shouldClose = glfwWindowShouldClose(window);
 
 	// initialize and get first HMD device
 	ovr_Initialize();
 	hmd = ovrHmd_Create(0);
 	if (!hmd) { hmd = ovrHmd_CreateDebug(ovrHmdType::ovrHmd_DK2); }
 
+	int width = 640;
+	int height = 480;
+	GLFWwindow* window = glfwCreateWindow(width, height, "VR Game Engine", NULL, NULL);
+	if (!window) { this->~GameEngine(); }
+	this->shouldClose = glfwWindowShouldClose(window);
+	Viewport viewport = Viewport(*window, 640, 480);
+
 	// set up hmd
 	ovrSizei resolution = hmd->Resolution;
 	ovrBool tracking = ovrHmd_ConfigureTracking(hmd, ovrTrackingCap_Orientation | ovrTrackingCap_MagYawCorrection | ovrTrackingCap_Position, 0);
 	if (tracking == false) { this->~GameEngine(); }
 
+	// configure hmd OpenGL instance
+	const ovrRecti debugRect = viewport;
+	ovrHmd_AttachToWindow(hmd, viewport.window, &debugRect, nullptr);
+
+	ovrRenderAPIConfig config;
+	config.Header.API = ovrRenderAPIType::ovrRenderAPI_OpenGL;
+	config.Header.Multisample = 4; 
+	ovrSizei rtSize = viewport;
+	config.Header.RTSize = rtSize;
+
+	ovrEyeRenderDesc eyeRenderDesc[2];
+	eyeRenderDesc[0] = ovrHmd_GetRenderDesc(hmd, ovrEye_Left, hmd->DefaultEyeFov[0]);
+	eyeRenderDesc[1] = ovrHmd_GetRenderDesc(hmd, ovrEye_Right, hmd->DefaultEyeFov[1]);
+	ovrHmd_ConfigureRendering(hmd, &config, hmd->DistortionCaps, hmd->DefaultEyeFov, eyeRenderDesc);
+
 	glfwMakeContextCurrent(window);
-	glfwSetKeyCallback(window, this->key_callback);
+	glfwSetKeyCallback(window, &this->key_callback);
 }
 
 GameEngine::~GameEngine() {
@@ -94,7 +131,7 @@ void GameEngine::render() {
 	}
 
 
-	//ovrHmd_BeginFrameTiming(hmd, 0);
+	ovrHmd_BeginFrame(hmd, 0);
 
 	glLoadIdentity();
 	glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
@@ -112,8 +149,8 @@ void GameEngine::render() {
 	glColor3f(0.f, 0.f, 1.f);
 	glVertex3f(0.f, 0.6f, 0.f);
 	glEnd();
-
-	glfwSwapBuffers(window);
+	
+	//ovrHmd_EndFrame(hmd, )
 	glfwPollEvents();
 }
 
@@ -125,4 +162,15 @@ int main(void) {
 	}
 
 	engine.~GameEngine();
+}
+
+void GameEngine::error_callback(int error, const char* description) {
+	fputs(description, stderr);
+}
+
+void GameEngine::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	ovrHmd_Destroy(engine->hmd);
+	ovr_Shutdown();
 }
