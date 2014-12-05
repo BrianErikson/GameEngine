@@ -4,6 +4,7 @@
 *.o
 *.obj
 
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -27,4 +28,6 @@
 *.out
 *.app
 
+# VS
+*.sdf
 Debug/
