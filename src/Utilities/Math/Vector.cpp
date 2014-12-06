@@ -181,6 +181,20 @@ Vector3::Vector3(float x, float y, float z) {
 	this->z = z;
 }
 
+float& Vector4::operator[](const int &num) {
+	switch (num) {
+		case 0:
+			return this->x;
+		case 1:
+			return this->y;
+		case 2:
+			return this->z;
+		default:
+			float def = 0.f;
+			return def;
+	}
+}
+
 /** Return the magnitude of the x and y axis
 */
 float Vector3::getMagnitude() {
@@ -221,12 +235,33 @@ Vector3 Vector3::cross(Vector3 &vector) {
 				Vector4
 ------------------------------------
 */
-
+Vector4::Vector4() {
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+	this->w = 0;
+}
 Vector4::Vector4(float x, float y, float z, float w) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
 	this->w = w;
+}
+
+float& Vector4::operator[](const int &num) {
+	switch (num) {
+		case 0:
+			return this->x;
+		case 1:
+			return this->y;
+		case 2:
+			return this->z;
+		case 3:
+			return this->w;
+		default:
+			float def = 0.f;
+			return def;
+	}
 }
 
 float Vector4::getMagnitude() {

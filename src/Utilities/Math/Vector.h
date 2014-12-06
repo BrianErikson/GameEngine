@@ -47,6 +47,7 @@ class Vector3 {
 
 		Vector3();
 		Vector3(float x, float y, float z);
+		float& operator[](const int &num);
 
 		float getMagnitude();
 		Vector3 getNormalizedVec();
@@ -62,7 +63,9 @@ class Vector4 : public Vector3 {
 		float z;
 		float w;
 
+		Vector4();
 		Vector4(float x, float y, float z, float w);
+		float& operator[](const int &num);
 
 		float getMagnitude();
 		Vector4 getNormalizedVec();
