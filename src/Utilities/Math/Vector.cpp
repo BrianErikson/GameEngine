@@ -156,3 +156,38 @@ Vector3& Vector3::operator-(const Vector3& vec) {
 	result.y -= vec.y;
 	return result;
 }
+
+/** Return the magnitude of the x and y axis
+*/
+float Vector3::getMagnitude() {
+	return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+}
+
+Vector3 Vector3::getNormalizedVec() {
+	Vector3 norm = *this;
+	float mag = norm.getMagnitude();
+	norm.x, norm.y, norm.z /= mag;
+	return norm;
+}
+
+float Vector3::dot(Vector3 &vector) {
+	Vector3 norm = this->getNormalizedVec();
+	Vector3 target = vector.getNormalizedVec();
+	return norm.x * target.x + norm.y * target.y + norm.z * target.z;
+}
+
+Vector3 Vector3::project(Vector3 &vector) {
+	return *this * this->dot(vector);
+}
+
+/** Returns the cross product between two vectors
+*/
+Vector3 Vector3::cross(Vector3 &vector) {
+	Vector3 a = this->getNormalizedVec();
+	Vector3 b = this->getNormalizedVec();
+	Vector3 result = Vector3();
+	result.x = a.y * b.z - a.z * b.y;
+	result.y = a.z * b.x - a.x * b.z;
+	result.z = a.x * b.y - a.y * b.x;
+	return result;
+}

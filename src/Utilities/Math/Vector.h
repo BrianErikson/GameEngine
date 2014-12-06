@@ -44,8 +44,7 @@ class Vector3 {
 		Vector3 getNormalizedVec();
 		float dot(Vector3 &vector);
 		Vector3 project(Vector3 &vector);
-		float wedge(Vector3 &vector);
-		Vector3 getPerpendicularVec();
+		Vector3 cross(Vector3 &vector);
 };
 
 class Vector4 : public Vector3 {
