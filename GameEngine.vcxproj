@@ -135,12 +135,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
+    <ClInclude Include="src\Scene\Actor.h" />
     <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Utilities\Math\Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
+    <ClCompile Include="src\Scene\Actor.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Utilities\Math\Vector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
