@@ -64,7 +64,7 @@ void Scene::render(const double &deltaTime, GLFWwindow* &window) {
 	glfwGetFramebufferSize(window, &width, &height);
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Camera
 	glMatrixMode(GL_PROJECTION);
@@ -74,6 +74,7 @@ void Scene::render(const double &deltaTime, GLFWwindow* &window) {
 	// Meshes
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	glEnable(GL_DEPTH_TEST);
 	//glRotatef(180.f, 0.f, 0.f, 0.f);
 	glTranslatef(0.f, 0.f, -500.f);
 	glRotatef((float)glfwGetTime() * 50.f, 0.f, 1.f, 1.f); 
