@@ -61,6 +61,36 @@ class Vector4 : public Vector3 {
 		float y;
 		float z;
 		float w;
+
+		Vector4(float x, float y, float z, float w);
+
+		float getMagnitude();
+		Vector4 getNormalizedVec();
+};
+
+enum EColor {
+	BLACK,
+	WHITE,
+	RED,
+	GREEN,
+	BLUE,
+	PURPLE
+};
+
+class Color {
+	private:
+	float r;
+	float g;
+	float b;
+	float a;
+	float getMagnitude();
+	public:
+	Color();
+	Color(Vector4 &color);
+	Color(EColor color);
+	void setColor(Vector4 &color);
+	void setColor(EColor &color);
+	Vector4 getColor();
 };
 
 #endif // UTILITIES_MATH_VECTOR_H_

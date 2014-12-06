@@ -215,3 +215,89 @@ Vector3 Vector3::cross(Vector3 &vector) {
 	result.z = a.x * b.y - a.y * b.x;
 	return result;
 }
+
+/**
+------------------------------------
+				Vector4
+------------------------------------
+*/
+
+Vector4::Vector4(float x, float y, float z, float w) {
+	this->x = x;
+	this->y = y;
+	this->z = z;
+	this->w = w;
+}
+
+float Vector4::getMagnitude() {
+	return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->w, 2));
+}
+
+Vector4 Vector4::getNormalizedVec() {
+	Vector4 norm = *this;
+	float mag = norm.getMagnitude();
+	norm.x, norm.y, norm.z, norm.w /= mag;
+	return norm;
+}
+
+/**
+------------------------------------
+				Color
+------------------------------------
+*/
+
+Color::Color() {
+	this->setColor(Vector4(0.f, 0.f, 0.f, 1.f));
+}
+
+/** Creates a new Color. Accepts values between 0-1, or 0-255
+*/
+Color::Color(Vector4 &color) {
+	this->setColor(color);
+}
+
+Color::Color(EColor color) {
+	this->setColor(color);
+}
+
+float Color::getMagnitude() {
+	return sqrt(pow(this->r, 2) + pow(this->g, 2) + pow(this->b, 2) + pow(this->a, 2));
+}
+
+/** Accepts values between 0-1, or 0-255
+*/
+void Color::setColor(Vector4 &color) {
+	this->r = color.x;
+	this->g = color.y;
+	this->b = color.z;
+	this->a = color.w;
+	float mag = this->getMagnitude();
+	this->r, this->g, this->b, this->a /= mag;
+}
+
+void Color::setColor(EColor &color) {
+	switch (color) {
+		case EColor::BLACK:
+			this->setColor(Vector4(0.f, 0.f, 0.f, 1.f));
+			break;
+		case EColor::WHITE:
+			this->setColor(Vector4(1.f, 1.f, 1.f, 1.f));
+			break;
+		case EColor::RED:
+			this->setColor(Vector4(1.f, 0.f, 0.f, 1.f));
+			break;
+		case EColor::GREEN:
+			this->setColor(Vector4(0.f, 1.f, 0.f, 1.f));
+			break;
+		case EColor::BLUE:
+			this->setColor(Vector4(0.f, 0.f, 1.f, 1.f));
+			break;
+		case EColor::PURPLE:
+			this->setColor(Vector4(1.f, 0.f, 1.f, 1.f));
+			break;
+	}
+}
+
+Vector4 Color::getColor() {
+	return Vector4(this->r, this->g, this->b, this->a);
+}

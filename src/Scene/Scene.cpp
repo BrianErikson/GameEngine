@@ -4,44 +4,55 @@
 Scene::Scene() {
 	meshes = std::vector<Mesh>();
 
-	Mesh box = Mesh(MeshType::POLYGON);
-
 	// White side - BACK
-	box.addVertex(Vector3(0.5, -0.5, 0.5));
-	box.addVertex(Vector3(0.5, 0.5, 0.5));
-	box.addVertex(Vector3(-0.5, 0.5, 0.5));
-	box.addVertex(Vector3(-0.5, -0.5, 0.5));
-	glEnd();
+	Polygon back = Polygon();
+	back.setColor(Color(EColor::WHITE));
+	back.addVertex(Vector3(0.5, -0.5, 0.5));
+	back.addVertex(Vector3(0.5, 0.5, 0.5));
+	back.addVertex(Vector3(-0.5, 0.5, 0.5));
+	back.addVertex(Vector3(-0.5, -0.5, 0.5));
 
 	// Purple side - RIGHT
-	box.addVertex(Vector3(0.5, -0.5, -0.5));
-	box.addVertex(Vector3(0.5, 0.5, -0.5));
-	box.addVertex(Vector3(0.5, 0.5, 0.5));
-	box.addVertex(Vector3(0.5, -0.5, 0.5));
-	glEnd();
+	Polygon right = Polygon();
+	right.setColor(Color(EColor::PURPLE));
+	right.addVertex(Vector3(0.5, -0.5, -0.5));
+	right.addVertex(Vector3(0.5, 0.5, -0.5));
+	right.addVertex(Vector3(0.5, 0.5, 0.5));
+	right.addVertex(Vector3(0.5, -0.5, 0.5));
 
 	// Green side - LEFT
-	box.addVertex(Vector3(-0.5, -0.5, 0.5));
-	box.addVertex(Vector3(-0.5, 0.5, 0.5));
-	box.addVertex(Vector3(-0.5, 0.5, -0.5));
-	box.addVertex(Vector3(-0.5, -0.5, -0.5));
-	glEnd();
+	Polygon left = Polygon();
+	left.setColor(Color(EColor::GREEN));
+	left.addVertex(Vector3(-0.5, -0.5, 0.5));
+	left.addVertex(Vector3(-0.5, 0.5, 0.5));
+	left.addVertex(Vector3(-0.5, 0.5, -0.5));
+	left.addVertex(Vector3(-0.5, -0.5, -0.5));
 
 	// Blue side - TOP
-	box.addVertex(Vector3(0.5, 0.5, 0.5));
-	box.addVertex(Vector3(0.5, 0.5, -0.5));
-	box.addVertex(Vector3(-0.5, 0.5, -0.5));
-	box.addVertex(Vector3(-0.5, 0.5, 0.5));
+	Polygon top = Polygon();
+	top.setColor(Color(EColor::BLUE));
+	top.addVertex(Vector3(0.5, 0.5, 0.5));
+	top.addVertex(Vector3(0.5, 0.5, -0.5));
+	top.addVertex(Vector3(-0.5, 0.5, -0.5));
+	top.addVertex(Vector3(-0.5, 0.5, 0.5));
 	glEnd();
 
 	// Red side - BOTTOM
-	box.addVertex(Vector3(0.5, -0.5, -0.5));
-	box.addVertex(Vector3(0.5, -0.5, 0.5));
-	box.addVertex(Vector3(-0.5, -0.5, 0.5));
-	box.addVertex(Vector3(-0.5, -0.5, -0.5));
+	Polygon bottom = Polygon();
+	bottom.setColor(Color(EColor::RED));
+	bottom.addVertex(Vector3(0.5, -0.5, -0.5));
+	bottom.addVertex(Vector3(0.5, -0.5, 0.5));
+	bottom.addVertex(Vector3(-0.5, -0.5, 0.5));
+	bottom.addVertex(Vector3(-0.5, -0.5, -0.5));
+
+	Mesh box = Mesh(MeshType::POLYGON);
+	box.add(back);
+	box.add(right);
+	box.add(left);
+	box.add(top);
+	box.add(bottom);
 
 	meshes.push_back(box);
-
 }
 
 Scene::~Scene() {

@@ -5,8 +5,16 @@ Mesh::Mesh(MeshType type) {
 	this->type = type;
 }
 
-void Mesh::addVertex(Vector3 vert) {
-	this->mesh.push_back(vert);
+void Mesh::add(Vector3 vert) {
+	if (this->type != MeshType::POLYGON) {
+		this->mesh.push_back(vert);
+	}
+}
+
+void Mesh::add(Polygon polygon) {
+	if (this->type == MeshType::POLYGON) {
+		this->polyMesh.push_back(polygon);
+	}
 }
 
 void Mesh::render(const double &deltaTime) {
@@ -18,4 +26,8 @@ void Mesh::render(const double &deltaTime) {
 		glVertex3f(vert.x, vert.y, vert.z);
 	}
 	glEnd();
+
+	for (int i = 0; i < this->polyMesh.size(); i++) {
+		this->polyMesh[i].render(deltaTime);
+	}
 }
