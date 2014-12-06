@@ -22,7 +22,9 @@ GameEngine::GameEngine(int width, int height) {
 	this->scenes = std::vector<Scene*>();
 
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
 	glfwSetKeyCallback(window, key_callback);
+	
 }
 
 GameEngine::~GameEngine() {

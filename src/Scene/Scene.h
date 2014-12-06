@@ -3,8 +3,13 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <vector>
+
+#include "../Utilities/Mesh.h"
 
 class Scene {
+	private:
+		std::vector<Mesh> meshes;
 	public:
 		Scene();
 		~Scene();

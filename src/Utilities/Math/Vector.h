@@ -2,6 +2,7 @@
 #define UTILITIES_MATH_VECTOR_H_
 
 #include <cmath>
+#include <string>
 
 class Vector2 {
 	public:
@@ -14,8 +15,11 @@ class Vector2 {
 		Vector2& operator+(const Vector2& vec);
 		Vector2& operator-(const Vector2& vec);
 
-		int x;
-		int y;
+		float x;
+		float y;
+
+		Vector2();
+		Vector2(float x, float y);
 
 		float getMagnitude();
 		Vector2 getNormalizedVec();
@@ -35,10 +39,14 @@ class Vector3 {
 		Vector3& operator/(const Vector3& vec);
 		Vector3& operator+(const Vector3& vec);
 		Vector3& operator-(const Vector3& vec);
+		std::string toString();
 
-		int x;
-		int y;
-		int z;
+		float x;
+		float y;
+		float z;
+
+		Vector3();
+		Vector3(float x, float y, float z);
 
 		float getMagnitude();
 		Vector3 getNormalizedVec();
@@ -49,10 +57,10 @@ class Vector3 {
 
 class Vector4 : public Vector3 {
 	public:
-		int x;
-		int y;
-		int z;
-		int w;
+		float x;
+		float y;
+		float z;
+		float w;
 };
 
 #endif // UTILITIES_MATH_VECTOR_H_

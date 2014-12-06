@@ -58,6 +58,15 @@ Vector2& Vector2::operator-(const Vector2& vec) {
 	return result;
 }
 
+Vector2::Vector2() {
+	this->x = 0;
+	this->y = 0;
+}
+Vector2::Vector2(float x, float y) {
+	this->x = x;
+	this->y = y;
+}
+
 /** Return the magnitude of the x and y axis
 */
 float Vector2::getMagnitude() {
@@ -155,6 +164,21 @@ Vector3& Vector3::operator-(const Vector3& vec) {
 	result.x -= vec.x;
 	result.y -= vec.y;
 	return result;
+}
+
+std::string Vector3::toString() {
+	return ("(" + std::to_string(this->x) + ", " + std::to_string(this->y) + ", " + std::to_string(this->z) + ")").c_str();
+}
+
+Vector3::Vector3() {
+	this->x = 0.f;
+	this->y = 0.f;
+	this->z = 0.f;
+}
+Vector3::Vector3(float x, float y, float z) {
+	this->x = x;
+	this->y = y;
+	this->z = z;
 }
 
 /** Return the magnitude of the x and y axis
