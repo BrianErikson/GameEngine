@@ -11,6 +11,7 @@ class Matrix {
 		Matrix& operator*(Matrix &mat);
 		Vector3& operator*(const Vector3 &vec);
 		Matrix& operator*=(Vector3 &vec);
+		Matrix& operator*=(float &scalar);
 		operator Vector3();
 };
 

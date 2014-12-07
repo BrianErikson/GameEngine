@@ -10,12 +10,14 @@ class MovementComponent : public ActorComponent {
 		Vector3 position;
 		Matrix matrix;
 		Matrix identity;
-		Matrix scale;
 		Matrix rotation;
 		Matrix translation;
 	public:
 		MovementComponent();
+		virtual void tick(const double &deltaTime) override;
+		virtual void render(const double &deltaTime) override;
 		void translate(Vector3 &vec);
+		void rotate(Vector3 &rotator);
 		Vector3 getPos();
 };
 

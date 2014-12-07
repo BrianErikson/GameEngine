@@ -181,7 +181,7 @@ Vector3::Vector3(float x, float y, float z) {
 	this->z = z;
 }
 
-float& Vector4::operator[](const int &num) {
+float& Vector3::operator[](const int &num) {
 	switch (num) {
 		case 0:
 			return this->x;

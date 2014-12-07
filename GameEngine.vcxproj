@@ -135,9 +135,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Components\ActorComponent.h" />
+    <ClInclude Include="src\Components\MeshComponent.h" />
     <ClInclude Include="src\Components\MovementComponent.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\Scene\Actor.h" />
+    <ClInclude Include="src\Scene\Actors\Box.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Utilities\Math\Matrix.h" />
     <ClInclude Include="src\Utilities\Math\Vector.h" />
@@ -146,10 +148,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\ActorComponent.cpp" />
+    <ClCompile Include="src\Components\MeshComponent.cpp" />
     <ClCompile Include="src\Components\MovementComponent.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\Scene\Actor.cpp" />
+    <ClCompile Include="src\Scene\Actors\Box.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Utilities\Math\Matrix.cpp" />
     <ClCompile Include="src\Utilities\Math\Vector.cpp" />

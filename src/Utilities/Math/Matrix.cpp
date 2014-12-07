@@ -44,6 +44,16 @@ Matrix& Matrix::operator*=(Vector3 &vec) {
 	return result;
 }
 
+Matrix& Matrix::operator*=(float &scalar) {
+	Matrix result = *this;
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 3; j++)
+			for (int k = 0; k < 4; k++)
+				result.matrix[i][j] += this->matrix[i][k] * scalar;
+
+	return result;
+}
+
 Matrix::operator Vector3() {
 	Vector4 result = Vector4();
 	for (int i = 0; i < 4; i++)

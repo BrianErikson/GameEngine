@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Actor.h"
+#include "Actors\Box.h"
 
 class Scene {
 	private:
