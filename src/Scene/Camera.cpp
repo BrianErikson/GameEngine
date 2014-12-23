@@ -10,7 +10,7 @@ CameraSettings::CameraSettings(float FOV, float aspectRatio, float near, float f
 
 Camera::Camera(Vector3 &position, Vector3 &rotation, CameraSettings &settings) : settings(settings) {
 	this->movementComponent = new MovementComponent();
-	movementComponent->translate(position);
+	movementComponent->setPosition(position);
 	movementComponent->rotate(rotation);
 	this->addComponent(movementComponent);
 }
@@ -33,6 +33,7 @@ void Camera::render(const double &deltaTime) {
 
 	Vector3 pos = this->movementComponent->getPosition();
 	glTranslatef(pos.x, pos.y, pos.z);
+	printf((pos.toString() + std::string("\n")).c_str());
 
 	Vector3 rot = this->movementComponent->getRotation();
 	glRotatef(rot.x, rot.y, rot.z, 1.f);
