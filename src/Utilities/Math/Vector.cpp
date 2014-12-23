@@ -114,13 +114,15 @@ Vector3& Vector3::operator*(const float& scalar) {
 	Vector3 result = *this;
 	result.x *= scalar;
 	result.y *= scalar;
+	result.z *= scalar;
 	return result;
 }
 
 Vector3& Vector3::operator/(const float& scalar) {
 	Vector3 result = *this;
-	result.x *= scalar;
-	result.y *= scalar;
+	result.x /= scalar;
+	result.y /= scalar;
+	result.z /= scalar;
 	return result;
 }
 
@@ -128,13 +130,24 @@ Vector3& Vector3::operator+(const float& scalar) {
 	Vector3 result = *this;
 	result.x += scalar;
 	result.y += scalar;
+	result.z += scalar;
 	return result;
 }
+
+Vector3& Vector3::operator+=(const float& scalar) {
+	Vector3 result = *this;
+	result.x += scalar;
+	result.y += scalar;
+	result.z += scalar;
+	return result;
+}
+
 
 Vector3& Vector3::operator-(const float& scalar) {
 	Vector3 result = *this;
 	result.x -= scalar;
 	result.y -= scalar;
+	result.z -= scalar;
 	return result;
 }
 
@@ -142,6 +155,7 @@ Vector3& Vector3::operator*(const Vector3& vec) {
 	Vector3 result = *this;
 	result.x *= vec.x;
 	result.y *= vec.y;
+	result.z *= vec.z;
 	return result;
 }
 
@@ -149,6 +163,7 @@ Vector3& Vector3::operator/(const Vector3& vec) {
 	Vector3 result = *this;
 	result.x /= vec.x;
 	result.y /= vec.y;
+	result.z /= vec.z;
 	return result;
 }
 
@@ -156,13 +171,15 @@ Vector3& Vector3::operator+(const Vector3& vec) {
 	Vector3 result = *this;
 	result.x += vec.x;
 	result.y += vec.y;
+	result.z += vec.z;
 	return result;
 }
 
-Vector3& Vector3::operator-(const Vector3& vec) {
+Vector3& Vector3::operator+=(const Vector3& vec) {
 	Vector3 result = *this;
-	result.x -= vec.x;
-	result.y -= vec.y;
+	result.x += vec.x;
+	result.y += vec.y;
+	result.z += vec.z;
 	return result;
 }
 

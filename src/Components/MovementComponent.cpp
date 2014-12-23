@@ -18,10 +18,11 @@ void MovementComponent::render(const double &deltaTime) {
 
 void MovementComponent::translate(Vector3 &vec) {
 	this->translation *= vec;
+	this->position += vec;
 }
 
 void MovementComponent::rotate(Vector3 &rotator) {
-	if (rotator.x != 0) {
+	/*if (rotator.x != 0) {
 		this->rotation.matrix[1][1] = cos(rotator.x);
 		this->rotation.matrix[1][2] = sin(rotator.x);
 		this->rotation.matrix[2][1] = -sin(rotator.x);
@@ -38,9 +39,22 @@ void MovementComponent::rotate(Vector3 &rotator) {
 		this->rotation.matrix[0][1] = sin(rotator.z);
 		this->rotation.matrix[1][0] = -sin(rotator.z);
 		this->rotation.matrix[1][1] = cos(rotator.z);
-	}
+	}*/
 }
 
-Vector3 MovementComponent::getPos() {
-	return this->translation;
+
+void MovementComponent::setPosition(Vector3 position) {
+	this->position = position;
+}
+
+void MovementComponent::setRotation(Vector3 rotation) {
+	this->rotation = rotation;
+}
+
+Vector3 MovementComponent::getPosition() {
+	return this->position;
+}
+
+Vector3 MovementComponent::getRotation() {
+	return this->rotation;
 }

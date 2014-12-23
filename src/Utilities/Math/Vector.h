@@ -34,10 +34,12 @@ class Vector3 {
 		Vector3& operator*(const float& scalar);
 		Vector3& operator/(const float& scalar);
 		Vector3& operator+(const float& scalar);
+		Vector3& operator+=(const float& scalar);
 		Vector3& operator-(const float& scalar);
 		Vector3& operator*(const Vector3& vec);
 		Vector3& operator/(const Vector3& vec);
 		Vector3& operator+(const Vector3& vec);
+		Vector3& operator+=(const Vector3& vec);
 		Vector3& operator-(const Vector3& vec);
 		std::string toString();
 

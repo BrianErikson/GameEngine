@@ -6,13 +6,14 @@
 #include <vector>
 
 #include "Actor.h"
-#include "Actors\Box.h"
+#include "Camera.h"
 
 class Scene {
 	private:
 		std::vector<Actor> actors;
+		Camera camera;
 	public:
-		Scene();
+		Scene(Camera &camera);
 		~Scene();
 		void render(const double &deltaTime, GLFWwindow* &window);
 };

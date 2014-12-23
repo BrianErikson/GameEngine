@@ -140,6 +140,7 @@
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\Scene\Actor.h" />
     <ClInclude Include="src\Scene\Actors\Box.h" />
+    <ClInclude Include="src\Scene\Camera.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Utilities\Math\Matrix.h" />
     <ClInclude Include="src\Utilities\Math\Vector.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\Scene\Actor.cpp" />
     <ClCompile Include="src\Scene\Actors\Box.cpp" />
+    <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Utilities\Math\Matrix.cpp" />
     <ClCompile Include="src\Utilities\Math\Vector.cpp" />

@@ -8,9 +8,9 @@
 class MovementComponent : public ActorComponent {
 	private:
 		Vector3 position;
+		Vector3 rotation;
 		Matrix matrix;
 		Matrix identity;
-		Matrix rotation;
 		Matrix translation;
 	public:
 		MovementComponent();
@@ -18,7 +18,10 @@ class MovementComponent : public ActorComponent {
 		virtual void render(const double &deltaTime) override;
 		void translate(Vector3 &vec);
 		void rotate(Vector3 &rotator);
-		Vector3 getPos();
+		void setPosition(Vector3 position);
+		void setRotation(Vector3 rotation);
+		Vector3 getPosition();
+		Vector3 getRotation();
 };
 
 #endif // COMPONENTS_MOVEMENTCOMPONENT_H_
