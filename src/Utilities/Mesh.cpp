@@ -20,7 +20,6 @@ void Mesh::add(Polygon polygon) {
 }
 
 void Mesh::render(const double &deltaTime) {
-	glEnable(GL_DEPTH_TEST);
 	if (this->type == MeshType::POLYGON) {
 		for (int i = 0; i < this->polyMesh.size(); i++) {
 			this->polyMesh[i].render(deltaTime);

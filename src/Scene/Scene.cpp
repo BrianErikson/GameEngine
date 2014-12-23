@@ -21,18 +21,19 @@ void Scene::render(const double &deltaTime, GLFWwindow* &window) {
 	// Camera
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(359.f, ratio, 0.1f, 1000);
+	gluPerspective(70.f, ratio, 0.1f, 1000);
 
 	// Meshes
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glEnable(GL_DEPTH_TEST);
-	glTranslatef(0.f, 0.f, -500.f);
-	glRotatef((float)glfwGetTime() * 50.f, 0.f, 1.f, 1.f); 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glTranslatef(0.f, 0.f, -5.f);
+	glRotatef((float)glfwGetTime() * 50.f, 0.f, 1.f, 1.f);
+
 	for (int i = 0; i < this->actors.size(); i++) {
 		this->actors[i].render(deltaTime);
 	}
+
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
