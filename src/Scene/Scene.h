@@ -5,11 +5,12 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
-#include "../Utilities/Mesh.h"
+#include "Actor.h"
+#include "Actors\Box.h"
 
 class Scene {
 	private:
-		std::vector<Mesh> meshes;
+		std::vector<Actor> actors;
 	public:
 		Scene();
 		~Scene();
