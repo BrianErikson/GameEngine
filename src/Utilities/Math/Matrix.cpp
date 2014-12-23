@@ -17,6 +17,15 @@ Matrix& Matrix::operator*(Matrix &mat) {
 	return result;
 }
 
+Matrix& Matrix::operator*=(Matrix &mat) {
+	Matrix result = Matrix();
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			for (int k = 0; k < 4; k++)
+				result.matrix[i][j] += this->matrix[i][k] * mat.matrix[k][j];
+	return result;
+}
+
 Vector3& Matrix::operator*(const Vector3 &vec) {
 	Vector3 result = Vector3();
 	result.x = vec.x * matrix[0].x +
@@ -60,4 +69,57 @@ Matrix::operator Vector3() {
 		result[i] = this->matrix[0][i] + this->matrix[1][i] + this->matrix[2][i] + this->matrix[3][i];
 	
 	return result;
+}
+
+void Matrix::rotate(Vector3 &rotator) {
+	if (rotator.x != 0) {
+		this->matrix[1][1] = cos(rotator.x);
+		this->matrix[1][2] = sin(rotator.x);
+		this->matrix[2][1] = -sin(rotator.x);
+		this->matrix[2][2] = cos(rotator.x);
+	}
+	if (rotator.y != 0) {
+		this->matrix[0][0] = cos(rotator.y);
+		this->matrix[0][2] = -sin(rotator.y);
+		this->matrix[2][0] = sin(rotator.y);
+		this->matrix[2][2] = cos(rotator.y);
+	}
+	if (rotator.z != 0) {
+		this->matrix[0][0] = cos(rotator.z);
+		this->matrix[0][1] = sin(rotator.z);
+		this->matrix[1][0] = -sin(rotator.z);
+		this->matrix[1][1] = cos(rotator.z);
+	}
+}
+
+void Matrix::translate(Vector3 &vector) {
+	this->matrix[0][4] += vector.x;
+	this->matrix[1][4] += vector.y;
+	this->matrix[2][4] += vector.z;
+}
+
+void Matrix::setScale(int scale) {
+	this->matrix[0][0] = scale;
+	this->matrix[1][1] = scale;
+	this->matrix[2][2] = scale;
+}
+
+Vector3 Matrix::getPosition() {
+	Vector3 pos;
+
+	pos.x = this->matrix[0][4];
+	pos.y = this->matrix[1][4];
+	pos.z = this->matrix[2][4];
+
+	return pos;
+}
+
+Vector3 Matrix::getEulerAngles() {
+	Vector3 rot;
+
+	rot.x = atan2(this->matrix[1][2], this->matrix[2][2]);
+	rot.y = atan2(-(this->matrix[0][2]), sqrt(this->matrix[1][2] + this->matrix[2][2]));
+	rot.z = atan2(this->matrix[0][1], this->matrix[0][0]);
+
+	return rot;
 }

@@ -3,13 +3,16 @@
 
 MovementComponent::MovementComponent() {
 	this->type = EActorComponent::MOVEMENT;
-	this->position = Vector3(0,0,0);
 	this->identity = Matrix();
-	this->matrix = Matrix();
+	this->translation = this->identity;
+	this->scale = this->identity;
 }
 
 void MovementComponent::tick(const double &deltaTime) {
+	this->local = this->translation * this->rotation * this->scale;
 
+	// TODO: Calculate world matrix;
+	this->world = this->local;
 }
 
 void MovementComponent::render(const double &deltaTime) {
@@ -17,44 +20,38 @@ void MovementComponent::render(const double &deltaTime) {
 }
 
 void MovementComponent::translate(Vector3 &vec) {
-	this->translation *= vec;
-	this->position += vec;
+	this->translation.translate(vec);
 }
 
 void MovementComponent::rotate(Vector3 &rotator) {
-	/*if (rotator.x != 0) {
-		this->rotation.matrix[1][1] = cos(rotator.x);
-		this->rotation.matrix[1][2] = sin(rotator.x);
-		this->rotation.matrix[2][1] = -sin(rotator.x);
-		this->rotation.matrix[2][2] = cos(rotator.x);
-	}
-	if (rotator.y != 0) {
-		this->rotation.matrix[0][0] = cos(rotator.y);
-		this->rotation.matrix[0][2] = -sin(rotator.y);
-		this->rotation.matrix[2][0] = sin(rotator.y);
-		this->rotation.matrix[2][2] = cos(rotator.y);
-	}
-	if (rotator.z != 0) {
-		this->rotation.matrix[0][0] = cos(rotator.z);
-		this->rotation.matrix[0][1] = sin(rotator.z);
-		this->rotation.matrix[1][0] = -sin(rotator.z);
-		this->rotation.matrix[1][1] = cos(rotator.z);
-	}*/
+	this->rotation.rotate(rotator);
 }
 
-
-void MovementComponent::setPosition(Vector3 position) {
-	this->position = position;
+void MovementComponent::setLocalPosition(Vector3 &position) {
+	this->translation *= this->identity;
+	this->translation.translate(position);
 }
 
-void MovementComponent::setRotation(Vector3 rotation) {
-	this->rotation = rotation;
+void MovementComponent::setWorldPosition(Vector3 &position) {
+	// TODO: Change to world position -- not local
+	this->setLocalPosition(position);
 }
 
-Vector3 MovementComponent::getPosition() {
-	return this->position;
+void MovementComponent::setRotation(Vector3 &rotation) {
+	this->rotation *= this->identity;
+	this->rotation.rotate(rotation);
+}
+
+Vector3 MovementComponent::getLocalPosition() {
+	// Not working
+	//return this->local.getPosition();
+	return this->translation.getPosition();
+}
+
+Vector3 MovementComponent::getWorldPosition() {
+	return this->world.getPosition();
 }
 
 Vector3 MovementComponent::getRotation() {
-	return this->rotation;
+	return this->world.getEulerAngles();
 }
