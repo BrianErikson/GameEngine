@@ -22,10 +22,10 @@ Box::Box() {
 	// Green side - LEFT
 	Polygon left = Polygon();
 	left.setColor(Color(EColor::GREEN));
-	left.addVertex(Vector3(-0.5, -0.5, 0.5));
-	left.addVertex(Vector3(-0.5, 0.5, 0.5));
-	left.addVertex(Vector3(-0.5, 0.5, -0.5));
-	left.addVertex(Vector3(-0.5, -0.5, -0.5));
+	left.addVertex(Vector3(-0.5, -0.5, 0.5)); // 0
+	left.addVertex(Vector3(-0.5, 0.5, 0.5)); // 2
+	left.addVertex(Vector3(-0.5, 0.5, -0.5)); // 3
+	left.addVertex(Vector3(-0.5, -0.5, -0.5)); // 1
 
 	// Blue side - TOP
 	Polygon top = Polygon();
