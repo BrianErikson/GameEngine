@@ -14,7 +14,7 @@ class Actor {
 		virtual void tick(const double &deltaTime);
 		virtual void render(const double &deltaTime);
 
-		virtual void addComponent(ActorComponent component);
+		virtual void addComponent(ActorComponent* component);
 		virtual bool removeComponentsOfType(EActorComponent type);
 
 		virtual std::vector<ActorComponent*>& getComponents();

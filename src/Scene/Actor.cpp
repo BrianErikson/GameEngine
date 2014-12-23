@@ -21,8 +21,8 @@ void Actor::render(const double &deltaTime) {
 	}
 }
 
-void Actor::addComponent(ActorComponent component) {
-	this->components.push_back(&component);
+void Actor::addComponent(ActorComponent* component) {
+	this->components.push_back(component);
 }
 
 /** Returns true if removal was successful

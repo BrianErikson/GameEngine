@@ -11,7 +11,7 @@ class MeshComponent : public ActorComponent {
 		Matrix scale;
 	public:
 		MeshComponent();
-		MeshComponent(Mesh mesh, float scale);
+		MeshComponent(Mesh* mesh, float scale);
 		virtual void render(const double &deltaTime) override;
 };
 

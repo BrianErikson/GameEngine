@@ -6,8 +6,8 @@ MeshComponent::MeshComponent() {
 	this->scale = Matrix();
 }
 
-MeshComponent::MeshComponent(Mesh mesh, float scale) {
-	this->mesh = &mesh;
+MeshComponent::MeshComponent(Mesh* mesh, float scale) {
+	this->mesh = mesh;
 	this->scale = Matrix();
 	this->scale *= scale;
 }

@@ -43,15 +43,16 @@ Box::Box() {
 	bottom.addVertex(Vector3(-0.5, -0.5, 0.5));
 	bottom.addVertex(Vector3(-0.5, -0.5, -0.5));
 
-	Mesh box = Mesh(MeshType::POLYGON);
-	box.add(back);
-	box.add(right);
-	box.add(left);
-	box.add(top);
-	box.add(bottom);
+	Mesh* box = new Mesh(MeshType::POLYGON);
+	box->add(back);
+	box->add(right);
+	box->add(left);
+	box->add(top);
+	box->add(bottom);
 
-	MeshComponent mesh = MeshComponent(box, 1.f);
+	MeshComponent* mesh = new MeshComponent(box, 1.f);
+	MovementComponent* movement = new MovementComponent();
 
 	this->addComponent(mesh);
-	this->addComponent(MovementComponent());
+	this->addComponent(movement);
 }
