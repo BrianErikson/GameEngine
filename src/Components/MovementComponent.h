@@ -11,12 +11,12 @@ class MovementComponent : public ActorComponent {
 		Matrix rotation;
 		Matrix scale;
 		Matrix identity;
-		Matrix local;
-		Matrix world;
+		Matrix transform;
+		bool isDirty;
+		std::string test;
 	public:
 		MovementComponent();
-		virtual void tick(const double &deltaTime) override;
-		virtual void render(const double &deltaTime) override;
+		void updateTransform();
 		void translate(Vector3 &vec);
 		void rotate(Vector3 &rotator);
 		void setLocalPosition(Vector3 &position);
@@ -25,6 +25,8 @@ class MovementComponent : public ActorComponent {
 		Vector3 getLocalPosition();
 		Vector3 getWorldPosition();
 		Vector3 getRotation();
+		Matrix getTransform();
+		virtual void tick(const double &deltaTime) override;
 };
 
 #endif // COMPONENTS_MOVEMENTCOMPONENT_H_

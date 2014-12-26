@@ -2,18 +2,33 @@
 #include "Matrix.h"
 
 Matrix::Matrix() {
+	this->setToIdenitity();
+};
+
+void Matrix::resetMatrix() {
+	matrix[0] = Vector4(0, 0, 0, 0);
+	matrix[1] = Vector4(0, 0, 0, 0);
+	matrix[2] = Vector4(0, 0, 0, 0);
+	matrix[3] = Vector4(0, 0, 0, 0);
+}
+
+void Matrix::setToIdenitity() {
 	matrix[0] = Vector4(1, 0, 0, 0);
 	matrix[1] = Vector4(0, 1, 0, 0);
 	matrix[2] = Vector4(0, 0, 1, 0);
 	matrix[3] = Vector4(0, 0, 0, 1);
-};
+}
 
 Matrix& Matrix::operator*(Matrix &mat) {
 	Matrix result = Matrix();
-	for (int i = 0; i < 4; i++) 
-		for (int j = 0; j < 4; j++) 
-			for (int k = 0; k < 4; k++) 
+	result.resetMatrix();
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			for (int k = 0; k < 4; k++) {
 				result.matrix[i][j] += this->matrix[i][k] * mat.matrix[k][j];
+			}
+		}
+	}
 	return result;
 }
 
@@ -92,10 +107,21 @@ void Matrix::rotate(Vector3 &rotator) {
 	}
 }
 
+void Matrix::setRotation(Vector3 &rotator) {
+	this->setToIdenitity();
+	this->rotate(rotator);
+}
+
 void Matrix::translate(Vector3 &vector) {
-	this->matrix[0][4] += vector.x;
-	this->matrix[1][4] += vector.y;
-	this->matrix[2][4] += vector.z;
+	this->matrix[0][3] += vector.x;
+	this->matrix[1][3] += vector.y;
+	this->matrix[2][3] += vector.z;
+}
+
+void Matrix::setPosition(Vector3 &pos) {
+	this->matrix[0][3] = pos.x;
+	this->matrix[1][3] = pos.y;
+	this->matrix[2][3] = pos.z;
 }
 
 void Matrix::setScale(int scale) {
@@ -105,13 +131,13 @@ void Matrix::setScale(int scale) {
 }
 
 Vector3 Matrix::getPosition() {
-	Vector3 pos;
+	Vector4 pos;
 
-	pos.x = this->matrix[0][4];
-	pos.y = this->matrix[1][4];
-	pos.z = this->matrix[2][4];
+	pos.x = this->matrix[0][3];
+	pos.y = this->matrix[1][3];
+	pos.z = this->matrix[2][3];
 
-	return pos;
+	return Vector3(pos.x, pos.y, pos.z);
 }
 
 Vector3 Matrix::getEulerAngles() {
@@ -122,4 +148,18 @@ Vector3 Matrix::getEulerAngles() {
 	rot.z = atan2(this->matrix[0][1], this->matrix[0][0]);
 
 	return rot;
+}
+
+std::string Matrix::toString() {
+	std::string str = std::string("");
+	str += std::string("[") + std::to_string(this->matrix[0][0]) + std::string(" ") + std::to_string(this->matrix[0][1]) + std::string(" ")
+		+ std::to_string(this->matrix[0][2]) + std::string(" ") + std::to_string(this->matrix[0][3]) + std::string("\n");
+	str += std::string(" ") + std::to_string(this->matrix[1][0]) + std::string(" ") + std::to_string(this->matrix[1][1]) + std::string(" ")
+		+ std::to_string(this->matrix[1][2]) + std::string(" ") + std::to_string(this->matrix[1][3]) + std::string("\n");
+	str += std::string(" ") + std::to_string(this->matrix[2][0]) + std::string(" ") + std::to_string(this->matrix[2][1]) + std::string(" ")
+		+ std::to_string(this->matrix[2][2]) + std::string(" ") + std::to_string(this->matrix[2][3]) + std::string("\n");
+	str += std::string(" ") + std::to_string(this->matrix[3][0]) + std::string(" ") + std::to_string(this->matrix[3][1]) + std::string(" ")
+		+ std::to_string(this->matrix[3][2]) + std::string(" ") + std::to_string(this->matrix[3][3]) + std::string("]\n");
+
+	return str;
 }

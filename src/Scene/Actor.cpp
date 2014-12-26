@@ -5,19 +5,18 @@ Actor::Actor() {
 
 }
 
+Actor::~Actor() {
+}
+
 void Actor::tick(const double &deltaTime) {
-	std::vector<ActorComponent*> components = this->getComponents();
-	for (int i = 0; i < components.size(); i++) {
-		ActorComponent* component = components[i];
-		component->tick(deltaTime);
+	for (int i = 0; i < this->components.size(); i++) {
+		this->components[i]->tick(deltaTime);
 	}
 }
 
 void Actor::render(const double &deltaTime) {
-	std::vector<ActorComponent*> components = this->getComponents();
-	for (int i = 0; i < components.size(); i++) {
-		ActorComponent* component = components[i];
-		component->render(deltaTime);
+	for (int i = 0; i < this->components.size(); i++) {
+		this->components[i]->render(deltaTime);
 	}
 }
 
@@ -37,15 +36,14 @@ bool Actor::removeComponentsOfType(EActorComponent type) {
 	return false;
 }
 
-std::vector<ActorComponent*>& Actor::getComponents() {
-	return this->components;
+std::vector<ActorComponent*>* Actor::getComponents() {
+	return &this->components;
 }
 
-ActorComponent* Actor::getComponentByType(EActorComponent &type) {
+ActorComponent* Actor::getComponentByType(EActorComponent type) {
 	for (int i = 0; i < this->components.size(); i++) {
-		ActorComponent* component = this->components[i];
-		if (type == component->getComponentType()) {
-			return component;
+		if (type == this->components[i]->getComponentType()) {
+			return this->components[i];
 		}
 	}
 	return nullptr;

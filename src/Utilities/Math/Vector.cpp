@@ -239,7 +239,7 @@ Vector3 Vector3::project(Vector3 &vector) {
 */
 Vector3 Vector3::cross(Vector3 &vector) {
 	Vector3 a = this->getNormalizedVec();
-	Vector3 b = this->getNormalizedVec();
+	Vector3 b = vector.getNormalizedVec();
 	Vector3 result = Vector3();
 	result.x = a.y * b.z - a.z * b.y;
 	result.y = a.z * b.x - a.x * b.z;

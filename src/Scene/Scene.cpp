@@ -18,9 +18,13 @@ void Scene::render(const double &deltaTime, GLFWwindow* &window) {
 	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	camera.tick(deltaTime);
 	camera.render(deltaTime);
 
 	// Meshes
+	for (int i = 0; i < this->actors.size(); i++) {
+		this->actors[i].tick(deltaTime);
+	}
 
 	for (int i = 0; i < this->actors.size(); i++) {
 		this->actors[i].render(deltaTime);

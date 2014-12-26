@@ -17,9 +17,9 @@ class Camera : public Actor {
 	private:
 		MovementComponent* movementComponent;
 		CameraSettings settings;
+		bool tmp;
 	public:
 		Camera(Vector3 &position, Vector3 &rotation, CameraSettings &settings);
 		~Camera();
-		virtual void tick(const double &deltaTime) override;
 		virtual void render(const double &deltaTime) override;
 };

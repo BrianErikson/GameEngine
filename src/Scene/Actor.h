@@ -11,14 +11,15 @@ class Actor {
 	protected:
 		Actor();
 	public:
+		~Actor();
 		virtual void tick(const double &deltaTime);
 		virtual void render(const double &deltaTime);
 
 		virtual void addComponent(ActorComponent* component);
 		virtual bool removeComponentsOfType(EActorComponent type);
 
-		virtual std::vector<ActorComponent*>& getComponents();
-		virtual ActorComponent* getComponentByType(EActorComponent &type);
+		virtual std::vector<ActorComponent*>* getComponents();
+		virtual ActorComponent* getComponentByType(EActorComponent type);
 };
 
 #endif // SCENE_ACTOR_H_
