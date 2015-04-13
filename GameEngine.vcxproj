@@ -93,7 +93,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\Dev\Projects\GameEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Dev\Projects\GameEngine\lib\Eigen;E:\Dev\Projects\GameEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -142,8 +142,6 @@
     <ClInclude Include="src\Scene\Actors\Box.h" />
     <ClInclude Include="src\Scene\Camera.h" />
     <ClInclude Include="src\Scene\Scene.h" />
-    <ClInclude Include="src\Utilities\Math\Matrix.h" />
-    <ClInclude Include="src\Utilities\Math\Vector.h" />
     <ClInclude Include="src\Utilities\Mesh.h" />
     <ClInclude Include="src\Utilities\Polygon.h" />
   </ItemGroup>
@@ -157,8 +155,6 @@
     <ClCompile Include="src\Scene\Actors\Box.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
-    <ClCompile Include="src\Utilities\Math\Matrix.cpp" />
-    <ClCompile Include="src\Utilities\Math\Vector.cpp" />
     <ClCompile Include="src\Utilities\Mesh.cpp" />
     <ClCompile Include="src\Utilities\Polygon.cpp" />
   </ItemGroup>

@@ -3,72 +3,60 @@
 
 MovementComponent::MovementComponent() {
 	this->type = EActorComponent::MOVEMENT;
-	this->identity = Matrix();
-	this->translation = Matrix();
-	this->scale = Matrix();
-	this->transform = Matrix();
-	this->isDirty = false;
-	this->test = std::string("What the fuck");
+	this->transform = Transform<float, 3, Eigen::Affine>();
+	this->transform.setIdentity();
 }
 
 void MovementComponent::tick(const double &deltaTime) {
-	//this->setLocalPosition(Vector3(0.f, 0.f, -5.f));
-	this->updateTransform();
+	this->setLocalPosition(Vector3f(0.f, 0.f, -5.f));\
 
 	//printf(std::to_string(this->isDirty).c_str());
 	//printf(this->transform.toString().c_str());
 }
 
-void MovementComponent::updateTransform() {
-	if (this->isDirty) {
-		//printf(std::string("Updating Transform!!\n").c_str());
-		this->transform = this->translation * this->rotation * this->scale;
-		//printf(this->translation.toString().c_str());
-		//printf(this->rotation.toString().c_str());
-		//printf(this->scale.toString().c_str());
-		//printf(this->transform.toString().c_str());
-		this->isDirty = false;
-	}
+void MovementComponent::translate(Vector3f &vec) {
+	this->transform.translate(vec);
 }
 
-void MovementComponent::translate(Vector3 &vec) {
-	this->translation.translate(vec);
-	this->isDirty = true;
+void MovementComponent::rotate(Vector3f &rotator) {
+	Matrix3f m;
+	m = AngleAxisf(rotator.x(), Vector3f::UnitZ())
+		* AngleAxisf(rotator.y(), Vector3f::UnitY())
+		* AngleAxisf(rotator.z(), Vector3f::UnitZ());
+	this->transform.rotate(m);
 }
 
-void MovementComponent::rotate(Vector3 &rotator) {
-	this->rotation.rotate(rotator);
-	this->isDirty = true;
+void MovementComponent::setLocalPosition(Vector3f &position) {
+	this->transform.translation() = position;
 }
 
-void MovementComponent::setLocalPosition(Vector3 &position) {
-	this->translation.setPosition(position);
-	this->isDirty = true;
-}
-
-void MovementComponent::setWorldPosition(Vector3 &position) {
+void MovementComponent::setWorldPosition(Vector3f &position) {
 	// TODO: Change to world position -- not local
 	this->setLocalPosition(position);
 }
 
-void MovementComponent::setRotation(Vector3 &rotation) {
-	this->rotation.setRotation(rotation);
-	this->isDirty = true;
+void MovementComponent::setRotation(Vector3f &rotation) {
+	Matrix3f m;
+	m = AngleAxisf(rotation.x(), Vector3f::UnitZ())
+		* AngleAxisf(rotation.y(), Vector3f::UnitY())
+		* AngleAxisf(rotation.z(), Vector3f::UnitZ());
+	this->transform.rotate(this->transform.rotation() * -1); // TODO: Make sure this is right
+	this->transform.rotate(m);
 }
 
-Vector3 MovementComponent::getLocalPosition() {
-	return this->translation.getPosition();
+Vector3f MovementComponent::getLocalPosition() {
+	return this->transform.translation();
 }
 
-Vector3 MovementComponent::getWorldPosition() {
-	return this->translation.getPosition();
+Vector3f MovementComponent::getWorldPosition() {
+	//TODO: Return something other than local
+	return this->getLocalPosition();
 }
 
-Vector3 MovementComponent::getRotation() {
-	return this->transform.getEulerAngles();
+Quaternionf MovementComponent::getRotation() {
+	return Quaternionf(this->transform.rotation());
 }
 
-Matrix MovementComponent::getTransform() {
-	this->updateTransform();
+Transform<float, 3, Eigen::Affine> MovementComponent::getTransform() {
 	return this->transform;
 }

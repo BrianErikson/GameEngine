@@ -3,11 +3,11 @@
 
 Mesh::Mesh(MeshType type) {
 	this->type = type;
-	this->mesh = std::vector<Vector3>();
+	this->mesh = std::vector<Vector3f>();
 	this->polyMesh = std::vector<Polygon>();
 }
 
-void Mesh::add(Vector3 vert) {
+void Mesh::add(Vector3f vert) {
 	if (this->type != MeshType::POLYGON) {
 		this->mesh.push_back(vert);
 	}

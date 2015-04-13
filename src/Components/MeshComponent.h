@@ -3,12 +3,14 @@
 
 #include "ActorComponent.h"
 #include "../Utilities/Mesh.h"
-#include "../Utilities/Math/Matrix.h"
+#include <Eigen>
+
+using Eigen::Transform;
 
 class MeshComponent : public ActorComponent {
 	private:
 		Mesh* mesh;
-		Matrix scale;
+		Transform<float, 3, Eigen::Affine> transform;
 	public:
 		MeshComponent();
 		MeshComponent(Mesh* mesh, float scale);

@@ -24,9 +24,6 @@
     <ClInclude Include="src\Scene\Actor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utilities\Math\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Utilities\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -37,9 +34,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\MovementComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utilities\Math\Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Components\MeshComponent.h">
@@ -65,9 +59,6 @@
     <ClCompile Include="src\Scene\Actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utilities\Math\Vector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utilities\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\MovementComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Utilities\Math\Matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\MeshComponent.cpp">

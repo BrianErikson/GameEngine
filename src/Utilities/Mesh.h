@@ -3,8 +3,10 @@
 
 #include <GL\glew.h>
 #include <vector>
-#include "Math\Vector.h"
+#include <Eigen>
 #include "Polygon.h"
+
+using Eigen::Vector3f;
 
 enum MeshType {
 	LINES = GL_LINES,
@@ -19,11 +21,11 @@ enum MeshType {
 class Mesh {
 	private:
 		MeshType type;
-		std::vector<Vector3> mesh;
+		std::vector<Vector3f> mesh;
 		std::vector<Polygon> polyMesh;
 	public:
 		Mesh(MeshType type);
-		void add(Vector3 vert);
+		void add(Vector3f vert);
 		void add(Polygon polygon);
 		void render(const double &deltaTime);
 };
@@ -34,7 +36,7 @@ class PolyMesh {
 		std::vector<Polygon> polyMesh;
 	public:
 		PolyMesh(MeshType type);
-		void addVertex(Vector3 vert);
+		void addVertex(Vector3f vert);
 		void render(const double &deltaTime);
 
 };
