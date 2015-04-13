@@ -2,8 +2,6 @@
 #include "Camera.h"
 #include <iostream>
 
-using Eigen::Transform;
-
 CameraSettings::CameraSettings(float FOV, float aspectRatio, float near, float far) {
 	this->FOV = FOV;
 	this->aspectRatio = aspectRatio;
@@ -30,9 +28,6 @@ void Camera::render(const double &deltaTime) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	Vector3f pos = this->movementComponent->getLocalPosition();
-	glTranslatef(pos.x(), pos.y(), pos.z());
-
-	Vector3f rot = this->movementComponent->getRotation().vec();
-	glRotatef(0.f, rot.x(), rot.y(), rot.z());
+	Transform<float, 3, 2, 0> transform = this->movementComponent->getTransform();
+	glLoadMatrixf(transform.data());
 }

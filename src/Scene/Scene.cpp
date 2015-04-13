@@ -18,6 +18,9 @@ void Scene::render(const double &deltaTime, GLFWwindow* &window) {
 	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	MovementComponent* camMovement = dynamic_cast<MovementComponent*>(camera.getComponentByType(EActorComponent::MOVEMENT));
+	camMovement->rotate(Vector3f(0.001, 0.001, 0.001));
+
 	camera.tick(deltaTime);
 	camera.render(deltaTime);
 
