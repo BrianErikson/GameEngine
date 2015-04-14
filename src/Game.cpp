@@ -2,6 +2,8 @@
 #include "Scene/Scene.h"
 #include "GameEngine.h"
 #include <Eigen>
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 using Eigen::Vector3f;
 
@@ -15,9 +17,33 @@ int main(void) {
 	Scene* scene = new Scene(camera);
 	GEngine.addScene(scene);
 
+	int desiredFPS = 60;
+	int FPS = 0;
+	double fixedDelta = 1.0 / desiredFPS;
+	double deltaTime = 0;
+	double curTime = glfwGetTime();
+	double prevTime = curTime;
+	double fpsTimer = 0;
+
 	while (!glfwWindowShouldClose(GEngine.getRenderWindow())) {
-		glEnable(GL_DEPTH_TEST);
-		GEngine.render();
+		curTime = glfwGetTime();
+		deltaTime = curTime - prevTime;
+		if (deltaTime >= fixedDelta) {
+			glEnable(GL_DEPTH_TEST);
+			GEngine.render();
+
+			++FPS;
+			fpsTimer += deltaTime;
+			prevTime = curTime;
+		}
+
+		// FPS counter
+		if (fpsTimer >= 1.0) {
+			fpsTimer = 0;
+			std::cout << FPS << std::endl;
+			FPS = 0;
+		}
+
 	}
 
 	GEngine.~GameEngine();
