@@ -14,9 +14,7 @@ void MovementComponent::tick(const double &deltaTime) {
 }
 
 void MovementComponent::translate(Vector3f &vec) {
-	std::cout << this->transform.data() << std::endl << std::endl;
 	this->transform.translate(vec);
-	std::cout << this->transform.data() << std::endl << std::endl;
 }
 
 void MovementComponent::rotate(Vector3f &rotator) {

@@ -16,10 +16,6 @@ using Eigen::Affine;
 class MovementComponent : public ActorComponent {
 	private:
 		Transform<float,3, Affine> transform;
-		Vector3f translation;
-		Vector3f scale;
-		Matrix3f rotation;
-		bool isDirty;
 	public:
 		MovementComponent();
 		void updateTransform();
