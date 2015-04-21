@@ -28,6 +28,6 @@ void Camera::render(const double &deltaTime) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	Transform<float, 3, 2, 0> transform = this->movementComponent->getTransform();
+	Transform<float, 3, Eigen::Affine> transform = this->movementComponent->getTransform();
 	glLoadMatrixf(transform.data());
 }

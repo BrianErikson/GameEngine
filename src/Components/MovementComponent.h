@@ -5,22 +5,21 @@
 #include <Eigen>
 
 using Eigen::Vector3f;
-using Eigen::Transform;
 using Eigen::Translation3f;
 using Eigen::Quaternionf;
 using Eigen::Matrix4f;
 using Eigen::Matrix3f;
+using Eigen::Transform;
 using Eigen::AngleAxisf;
+using Eigen::Affine;
 
 class MovementComponent : public ActorComponent {
 	private:
-		Transform<float, 3, Eigen::Affine> transform;
-		Translation3f translation;
-		Matrix4f rotation;
-		Matrix4f scale;
-		Matrix4f identity;
+		Transform<float,3, Affine> transform;
+		Vector3f translation;
+		Vector3f scale;
+		Matrix3f rotation;
 		bool isDirty;
-		std::string test;
 	public:
 		MovementComponent();
 		void updateTransform();
@@ -32,7 +31,7 @@ class MovementComponent : public ActorComponent {
 		Vector3f getLocalPosition();
 		Vector3f getWorldPosition();
 		Quaternionf getRotation();
-		Transform<float, 3, Eigen::Affine> getTransform();
+		Transform<float, 3, Affine> getTransform();
 		virtual void tick(const double &deltaTime) override;
 };
 

@@ -40,7 +40,6 @@ int main(void) {
 		// FPS counter
 		if (fpsTimer >= 1.0) {
 			fpsTimer = 0;
-			std::cout << FPS << std::endl;
 			FPS = 0;
 		}
 
